@@ -18,11 +18,12 @@ const refs = {
 
 refs.input.addEventListener('input', debounce(onSearchCountry, DEBOUNCE_DELAY));
 
-function onSearchCountry() {
-  if (refs.input.value === '') {
+function onSearchCountry(e) {
+  const countryName = e.target.value.trim();
+  if (!countryName) {
     clearMarkup();
   } else {
-    fetchCountries(refs.input.value.trim())
+    fetchCountries(countryName)
       .then(filterArrayCountry)
       .catch(() => Notify.failure('Oops, there is no country with that name'));
   }
